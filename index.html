@@ -736,6 +736,14 @@
       align-items: start;
     }
 
+    #inquiry-form {
+      scroll-margin-top: 100px;
+    }
+
+    #inquiry-heading {
+      margin-bottom: 16px;
+    }
+
     form {
       background: var(--bg-soft);
       border: 1px solid var(--line);
@@ -1012,10 +1020,10 @@
         <a href="#services">Services</a>
         <a href="#portfolio">Portfolio</a>
         <a href="#process">Process</a>
-        <a href="#contact">Contact</a>
+        <a href="#inquiry-form" data-inquiry-type="General inquiry">Contact</a>
       </div>
 
-      <a class="btn btn-primary" href="#contact">Free Website Review</a>
+      <a class="btn btn-primary" href="#inquiry-form" data-inquiry-type="Free website review">Free Website Review</a>
     </div>
   </nav>
 
@@ -1030,7 +1038,7 @@
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#contact">Request a Free Review</a>
+            <a class="btn btn-primary" href="#inquiry-form" data-inquiry-type="Free website review">Request a Free Review</a>
             <a class="btn btn-secondary" href="#portfolio">View Work</a>
           </div>
 
@@ -1271,7 +1279,7 @@
             <h2>Want to know what your website could be doing better?</h2>
             <p>Request a free website review and receive practical suggestions for improving trust, clarity, leads, and customer action.</p>
           </div>
-          <a class="btn btn-primary" href="#contact">Start Free Review</a>
+          <a class="btn btn-primary" href="#inquiry-form" data-inquiry-type="Free website review">Start Free Review</a>
         </div>
       </div>
     </section>
@@ -1286,10 +1294,36 @@
           </p>
         </div>
 
-        <div>
-          <p>Include your business name, website, and what you’d like to improve.</p>
-          <a class="btn btn-primary" href="mailto:hello@profit-path-digital.com?subject=Free%20Website%20Review">Email us for a free review</a>
-        </div>
+        <form id="inquiry-form" action="https://formsubmit.co/hello@profit-path-digital.com" method="post" aria-labelledby="inquiry-heading">
+          <h3 id="inquiry-heading">Send an inquiry</h3>
+          <input type="hidden" name="_subject" value="New inquiry from Profit Path Digital">
+          <div hidden>
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off">
+          </div>
+
+          <label for="inquiry-type">What can we help with?</label>
+          <select id="inquiry-type" name="inquiry_type">
+            <option value="General inquiry">General inquiry</option>
+            <option value="Free website review">Free website review</option>
+          </select>
+
+          <label for="inquiry-name">Name</label>
+          <input id="inquiry-name" name="name" autocomplete="name" maxlength="120" required>
+
+          <label for="inquiry-email">Email</label>
+          <input id="inquiry-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+
+          <label for="inquiry-business">Business name (optional)</label>
+          <input id="inquiry-business" name="business" autocomplete="organization" maxlength="150">
+
+          <label for="inquiry-website">Website (optional)</label>
+          <input id="inquiry-website" name="website" inputmode="url" autocomplete="url" maxlength="300">
+
+          <label for="inquiry-message">What would you like to improve?</label>
+          <textarea id="inquiry-message" name="message" maxlength="4000" required></textarea>
+
+          <button class="btn btn-primary" type="submit">Send inquiry</button>
+        </form>
       </div>
     </section>
   </main>
@@ -1300,5 +1334,13 @@
       <p>Better websites. More leads. Higher revenue.</p>
     </div>
   </footer>
+  <script>
+    const inquiryType = document.getElementById('inquiry-type');
+    document.querySelectorAll('[data-inquiry-type]').forEach((link) => {
+      link.addEventListener('click', () => {
+        inquiryType.value = link.dataset.inquiryType;
+      });
+    });
+  </script>
 </body>
 </html>
